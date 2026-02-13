@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hours Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Time Tracker</h1>
+            <p class="subtitle">Track your weekly hours with style</p>
+        </header>
+
+        <div class="timesheet" id="timesheet">
+            <!-- Days will be dynamically generated -->
+        </div>
+
+        <div class="weekly-total-card">
+            <div class="total-label">Total Weekly Hours</div>
+            <div class="total-hours" id="weeklyTotal">0:00</div>
+            <div class="total-sublabel">across all days</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

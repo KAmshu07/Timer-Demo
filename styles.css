@@ -1,0 +1,473 @@
+/* ===========================
+   CSS VARIABLES & RESET
+   =========================== */
+:root {
+    /* Colors - Warm Neo-Brutalist Palette */
+    --coral: #FF6B58;
+    --peach: #FFB088;
+    --cream: #FFF5ED;
+    --charcoal: #1A1A1A;
+    --dark-gray: #2D2D2D;
+    --warm-orange: #FF8C42;
+    --golden: #FFD23F;
+    --white: #FFFFFF;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+
+    /* Borders */
+    --border-width: 4px;
+    --border-radius: 12px;
+
+    /* Shadows */
+    --shadow-sm: 4px 4px 0 var(--charcoal);
+    --shadow-md: 6px 6px 0 var(--charcoal);
+    --shadow-lg: 8px 8px 0 var(--charcoal);
+
+    /* Typography */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, var(--cream) 0%, #FFE8D6 100%);
+    color: var(--charcoal);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: var(--space-lg) var(--space-md);
+}
+
+/* ===========================
+   LAYOUT
+   =========================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===========================
+   HEADER
+   =========================== */
+.header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    color: var(--charcoal);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-xs);
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+/* ===========================
+   DAY CARDS
+   =========================== */
+.timesheet {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.day-card {
+    background: var(--white);
+    border: var(--border-width) solid var(--charcoal);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-md);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+.day-card:nth-child(1) { animation-delay: 0.1s; }
+.day-card:nth-child(2) { animation-delay: 0.15s; }
+.day-card:nth-child(3) { animation-delay: 0.2s; }
+.day-card:nth-child(4) { animation-delay: 0.25s; }
+.day-card:nth-child(5) { animation-delay: 0.3s; }
+.day-card:nth-child(6) { animation-delay: 0.35s; }
+.day-card:nth-child(7) { animation-delay: 0.4s; }
+
+.day-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0 var(--charcoal);
+}
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 3px solid var(--cream);
+}
+
+.day-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.day-total {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+    background: var(--coral);
+    padding: 0.25rem 0.75rem;
+    border: var(--border-width) solid var(--charcoal);
+    border-radius: 8px;
+    box-shadow: 3px 3px 0 var(--charcoal);
+    min-width: 100px;
+    text-align: center;
+}
+
+.day-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-sm);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.input-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--dark-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+/* Time Picker Container */
+.time-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border: 3px solid var(--charcoal);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.time-picker:focus-within {
+    background: var(--golden);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 var(--charcoal);
+}
+
+/* Hour Input */
+.time-hour-input {
+    width: 50px;
+    padding: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid var(--charcoal);
+    border-radius: 6px;
+    background: var(--cream);
+    color: var(--charcoal);
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.time-hour-input:focus {
+    outline: none;
+    background: var(--peach);
+    border-color: var(--coral);
+}
+
+/* Time Separator */
+.time-separator {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--charcoal);
+}
+
+/* Minute Input */
+.time-min-input {
+    width: 50px;
+    padding: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid var(--charcoal);
+    border-radius: 6px;
+    background: var(--cream);
+    color: var(--charcoal);
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.time-min-input:focus {
+    outline: none;
+    background: var(--peach);
+    border-color: var(--coral);
+}
+
+/* AM/PM Select */
+.time-period-select {
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 3px solid var(--charcoal);
+    border-radius: 6px;
+    background: var(--coral);
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.time-period-select:hover {
+    background: var(--warm-orange);
+    transform: scale(1.05);
+}
+
+.time-period-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--golden);
+}
+
+/* Remove number input spinners */
+.time-hour-input::-webkit-inner-spin-button,
+.time-hour-input::-webkit-outer-spin-button,
+.time-min-input::-webkit-inner-spin-button,
+.time-min-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.time-hour-input,
+.time-min-input {
+    -moz-appearance: textfield;
+}
+
+/* Break Input */
+.break-input {
+    width: 100%;
+    padding: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    border: 3px solid var(--charcoal);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--charcoal);
+    transition: all 0.2s ease;
+    cursor: text;
+    text-align: center;
+}
+
+.break-input:focus {
+    outline: none;
+    background: var(--golden);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 var(--charcoal);
+}
+
+/* Remove number input spinners for break input */
+.break-input::-webkit-inner-spin-button,
+.break-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ===========================
+   WEEKLY TOTAL CARD
+   =========================== */
+.weekly-total-card {
+    background: var(--charcoal);
+    border: var(--border-width) solid var(--charcoal);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards;
+}
+
+.weekly-total-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+        transparent 30%,
+        rgba(255, 107, 88, 0.1) 50%,
+        transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+.total-label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--peach);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+}
+
+.total-hours {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.total-sublabel {
+    font-size: 0.9rem;
+    color: var(--peach);
+    font-weight: 500;
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Pulse animation for updated totals */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pulse {
+    animation: pulse 0.3s ease;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 640px) {
+    body {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .day-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+    }
+
+    .day-total {
+        align-self: stretch;
+    }
+
+    .day-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .time-picker {
+        padding: 0.75rem;
+    }
+
+    .time-hour-input,
+    .time-min-input {
+        width: 45px;
+        font-size: 1rem;
+    }
+
+    .time-period-select {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+@media (min-width: 641px) {
+    .day-inputs {
+        grid-template-columns: 2fr 2fr 1fr;
+    }
+}
+
+/* ===========================
+   UTILITY CLASSES
+   =========================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
